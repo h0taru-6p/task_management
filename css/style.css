@@ -1,5 +1,13 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
 nav {
   display: flex;
+  
 }
 .error {
   color: red;
