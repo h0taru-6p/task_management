@@ -1,0 +1,6 @@
+nav {
+  display: flex;
+}
+.error {
+  color: red;
+}

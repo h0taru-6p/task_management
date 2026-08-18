@@ -1,0 +1,50 @@
+<?php
+session_start();
+require("../dbconnect.php");
+require("../functions.php");
+$tasks = $db->prepare("
+select * from tasks where user_id = ?;
+");
+$tasks->execute([
+  $_SESSION["id"]
+]);
+?>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>タスク管理アプリ</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>タスク一覧</h1>
+</header>
+<nav>
+  <a href="../user/index.php">マイページ</a>
+  |
+  <a href="new.php">タスク登録</a>
+  |
+  <form action="" method="get">
+  <input type="text" name="keyword">
+  <button type="submit">検索・絞り込み</button>
+</form>
+  |
+  <a href="../logout.php">ログアウト</a>
+</nav>
+<main>
+  <?php foreach ($tasks as $task): ?>
+    <a href="edit.php"><p>タイトル： <?php echo $task["title"]; ?></p></a>
+    <p>説明文： <?php echo $task["sabscription"] ?? ""; ?></p>
+    <p>期限日： <?php echo $task["due_date"]; ?></p>
+    <p>完了/未完了： <?php echo $task["completed"]; ?></p>
+    
+  <?php endforeach; ?>
+</main>
+
+
+
+</body>
+</html>
+task_management
