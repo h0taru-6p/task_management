@@ -1,10 +1,55 @@
 <?php
 session_start();
+require("../dbconnect.php");
+require("../functions.php");
+login_check($_SESSION["id"]);
+
+$data = $db->prepare("
+select * from users where id = ?;
+");
+$data->execute([
+  $_SESSION["id"]
+]);
+$user = $data->fetch();
+print_r($user);
 
 if (!empty($_POST)){
-  $_SESSION["join"] = $_POST;
-  header("Location: index.php");
-  exit();
+  // 値チェック
+  if ($_POST["name"] ?? "" == ""){
+    $error["name"] = "blank";
+  }
+  if ($_POST["email"] ?? "" == ""){
+    $error["email"] = "blank";
+  }
+  if ($_POST["email"] ?? "" != ""){
+    $check = $db->prepare("
+    select count(*) as cnt from users where email = ?;
+    ");
+    $count = $check->execute([
+      $_POST["email"]
+    ]);
+    if ($count["cnt"] > 0){
+      $error["email"] = "duplicate";
+    }
+  }
+  if ($_POST["password"] ?? "" == ""){
+    $error["password"] = "blank";
+  }
+
+  if (empty($error)){
+    $update = $db->prepare("
+    update users set name = ?, email = ?, password = ?
+    where id = ?;
+    ");
+    $update->execute([
+      $_POST["name"],
+      $_POST["email"],
+      password_hash($_POST["password"], PASSWORD_DEFAULT),
+      $_SESSION["id"]
+    ]);
+    header("Location: index.php");
+    exit();
+  }
 }
 ?>
 
@@ -14,7 +59,7 @@ if (!empty($_POST)){
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>タスク管理アプリ</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <header>
@@ -27,7 +72,7 @@ if (!empty($_POST)){
   <dl>
     <dt>ユーザ名（現在）</dt>
     <dd>
-      <?php echo $_SESSION["join"]["name"]?> 
+      <?php echo hsc($user["name"] ?? "");?> 
     </dd>
     <dt>ユーザ名（変更内容）</dt>
     <dd>
@@ -35,7 +80,7 @@ if (!empty($_POST)){
     </dd>
     <dt> メールアドレス（現在）</dt>
     <dd>
-      <?php echo $_SESSION["join"]["name"] ?>
+      <?php echo hsc($user["email"] ?? ""); ?>
     </dd>
     <dt> メールアドレス（変更内容）</dt>
     <dd>
@@ -52,7 +97,6 @@ if (!empty($_POST)){
   </dl>
   <input type="submit" value="変更">
 </form>
-
 
 
 </body>
