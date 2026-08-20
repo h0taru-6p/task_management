@@ -2,11 +2,13 @@
 session_start();
 require("../dbconnect.php");
 require("../functions.php");
+login_check($_SESSION["id"]);
+
 $data = $db->prepare("
 select * from tasks where id = ?;
 ");
 $data->execute([
-  hsc($_REQUEST["id"] ?? "")
+  ($_REQUEST["id"] ?? "")
 ]);
 $task = $data->fetch();
 
@@ -52,7 +54,7 @@ if (!empty($_POST)){
   <dl>
     <dt>タイトルを編集</dt>
     <dd>
-      <input type="text" name="title" value="<?php echo $task["title"]; ?>" size="30" maxlength="100">
+      <input type="text" name="title" value="<?php echo hsc($task["title"]); ?>" size="30" maxlength="100">
       <?php if (($error["title"] ?? "") == "blank"): ?>
       <p class="error">タイトルは必須です</p>
       <?php endif; ?>
@@ -61,18 +63,18 @@ if (!empty($_POST)){
   <dl>
     <dt>説明文を編集(任意)</dt>
     <dd>
-      <textarea name="description" cols="30" rows="3"><?php echo $task["description"]; ?></textarea>
+      <textarea name="description" cols="30" rows="3"><?php echo hsc($task["description"]); ?></textarea>
     </dd>
   </dl>
   <dl>
     <dt>期限日を編集（任意）</dt>
     <dd>
-      <input type="date" name="due_date" value="<?php echo date("Y-m-d", strtotime($task["due_date"])); ?>">
+      <input type="date" name="due_date" value="<?php echo hsc(date("Y-m-d", strtotime($task["due_date"]))); ?>">
     </dd>
   </dl>
   <dl>
     <dt>完了/未完了
-      (現在の設定：<?php echo $task["completed"] == 0 ? "未完了" : "完了" ; ?>)
+      (現在の設定：<?php echo hsc($task["completed"] == 0 ? "未完了" : "完了") ; ?>)
     </dt>
     <dd>
       <input type="radio" id="choice1" name="completed" value="1">
@@ -86,7 +88,7 @@ if (!empty($_POST)){
   </dl>
   <input type="submit" value="変更">
 </form>
-<a href="#">削除</a>
+<a href="delete.php?id=<?php echo hsc($_REQUEST["id"]) ?>">削除</a>
 
 </body>
 </html>

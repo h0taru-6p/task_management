@@ -2,6 +2,8 @@
 session_start();
 require("../dbconnect.php");
 require("../functions.php");
+login_check($_SESSION["id"]);
+
 if (!empty($_POST)){
   if ($_POST["title"] == ""){
     $error["title"] = "blank";
@@ -14,8 +16,8 @@ if (!empty($_POST)){
     $task->execute([
       $_SESSION["id"],
       $_POST["title"],
-      $_POST["description"] ?? null,
-      $_POST["deadline"] ?? null
+      ($_POST["description"] ?? null),
+      ($_POST["due_date"] ?? null)
     ]);
     header("Location: index.php");
     exit();
@@ -44,7 +46,7 @@ if (!empty($_POST)){
     <dt>タイトルを入力</dt>
     <dd>
       <input type="text" name="title" value="<?php echo hsc($_POST["name"] ?? ""); ?>" size="30" maxlength="100">
-      <?php if ($error["title"] ?? "" == "blank"): ?>
+      <?php if (($error["title"] ?? "") == "blank"): ?>
       <p class="error">タイトルは必須です</p>
       <?php endif; ?>
     </dd>
@@ -52,13 +54,13 @@ if (!empty($_POST)){
   <dl>
     <dt>説明文を入力（任意）</dt>
     <dd>
-      <textarea name="description" cols="30" rows="3"><?php echo $_POST["description"] ?? ""; ?></textarea>
+      <textarea name="description" cols="30" rows="3"><?php echo hsc($_POST["description"] ?? ""); ?></textarea>
     </dd>
   </dl>
   <dl>
     <dt>期限日を入力（任意）</dt>
     <dd>
-      <input type="date" name="deadline" value="<?php echo $_POST["deadline"] ?? ""; ?>">
+      <input type="date" name="due_date" value="<?php echo hsc($_POST["due_date"] ?? ""); ?>">
     </dd>
   </dl>
   <input type="submit" value="登録">
