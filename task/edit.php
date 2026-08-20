@@ -11,15 +11,18 @@ $data->execute([
 $task = $data->fetch();
 
 if (!empty($_POST)){
-  if ($_POST["title"] ?? "" == ""){
+  if (($_POST["title"] ?? "") == ""){
     $error["title"] = "blank";
+  }
+  if (($_POST["completed"] ?? "") == ""){
+  $error["completed"] = "blank";
   }
   if (empty($error)){
     $update = $db->prepare("
     update tasks set title = ?, description = ?, due_date = ?, completed = ? where id = ?;
     ");
     $update->execute([
-      $_POST["name"],
+      $_POST["title"],
       $_POST["description"],
       $_POST["due_date"],
       $_POST["completed"],
@@ -50,8 +53,8 @@ if (!empty($_POST)){
     <dt>タイトルを編集</dt>
     <dd>
       <input type="text" name="title" value="<?php echo $task["title"]; ?>" size="30" maxlength="100">
-      <?php if ($_error["title"] ?? "" == "blank"): ?>
-      <p class="error">タイトルは必須</p>
+      <?php if (($error["title"] ?? "") == "blank"): ?>
+      <p class="error">タイトルは必須です</p>
       <?php endif; ?>
     </dd>
   </dl>
@@ -64,7 +67,21 @@ if (!empty($_POST)){
   <dl>
     <dt>期限日を編集（任意）</dt>
     <dd>
-      <input type="date" name="deadline" value="<?php echo date("Y-m-d", strtotime($task["due_date"])); ?>">
+      <input type="date" name="due_date" value="<?php echo date("Y-m-d", strtotime($task["due_date"])); ?>">
+    </dd>
+  </dl>
+  <dl>
+    <dt>完了/未完了
+      (現在の設定：<?php echo $task["completed"] == 0 ? "未完了" : "完了" ; ?>)
+    </dt>
+    <dd>
+      <input type="radio" id="choice1" name="completed" value="1">
+      <label for="choice1">完了</label>
+      <input type="radio" id="choice2" name="completed" value="0">
+      <label for="choice2">未完了</label>
+      <?php if (($error["completed"] ?? "") == "blank"): ?>
+        <p class="error">完了/未完了は必須です</p>
+      <?php endif; ?>
     </dd>
   </dl>
   <input type="submit" value="変更">
