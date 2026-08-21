@@ -1,4 +1,5 @@
 <?php
+require("dbconnect.php");
 // セキュリティ　受け取り値のhtmlコード無効化
 function hsc($value){
   return htmlspecialchars($value, ENT_QUOTES);
@@ -11,5 +12,61 @@ function login_check($id){
     exit();
   }
 }
-
+// ユーザ名チェック
+function validate_name($name){
+  if (($name ?? "") == ""){
+    // 空文字
+    return "blank";
+  }elseif(mb_strlen($name) > 30){
+    // 30文字以内
+    return "too_long";
+  }else{
+    return "";
+  }
+}
+// メールアドレスチェック（バリデーション）
+function validate_email($email){
+  $pattern = '/^([a-z0-9+_\-]+)(\.[a-z0-9+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/iD';
+  if (($email ?? "") == ""){
+    // 空文字
+    return "blank";
+  }elseif(strlen($email) >= 255){
+    // 255文字以内
+    return "too_long";
+  }elseif(!preg_match($pattern, $email)){
+    // 形式エラー
+    return "invalid";
+  }else{
+    return "";
+  }
+}
+// メールアドレスチェック（重複）
+function duplicate_email($email){
+  global $db;// これがないとdbconnect.phpから読み込めない
+  $stmt = $db->prepare("
+    select count(*) as cnt from users where email = ?;
+    ");
+    $stmt->execute([
+      $email
+    ]);
+    $count = $stmt->fetch();
+    if ($count["cnt"] > 0){
+      return "duplicate";
+    }else{
+      return "";
+    }
+}
+// パスワード形式チェック
+function validate_password($password){
+  $pattern = '/^[a-zA-Z0-9!@#$%^&*()_\-+=]+$/';
+  if (($password ?? "") == ""){
+    return "blank";
+  }elseif(strlen($password) >= 100 and mb_strlen($password) <= 8){
+    return "length_error";
+  }elseif(!preg_match($pattern, $password)){
+    return "invalid";
+  }else{
+    return "";
+  }
+}
 ?>

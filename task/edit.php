@@ -54,7 +54,7 @@ if (!empty($_POST)){
   <dl>
     <dt>タイトルを編集</dt>
     <dd>
-      <input type="text" name="title" value="<?php echo hsc($task["title"]); ?>" size="30" maxlength="100">
+      <input type="text" name="title" value="<?php echo hsc($task["title"]); ?>" size="30" maxlength="30">
       <?php if (($error["title"] ?? "") == "blank"): ?>
       <p class="error">タイトルは必須です</p>
       <?php endif; ?>

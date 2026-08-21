@@ -4,38 +4,41 @@ require("../dbconnect.php");
 require("../functions.php");
 login_check($_SESSION["id"]);
 
-$data = $db->prepare("
+$stmt = $db->prepare("
 select * from users where id = ?;
 ");
-$data->execute([
+$stmt->execute([
   $_SESSION["id"]
 ]);
-$user = $data->fetch();
+$user = $stmt->fetch();
 print_r($user);
 
+// 値チェック
 if (!empty($_POST)){
-  // 値チェック
-  if ($_POST["name"] ?? "" == ""){
-    $error["name"] = "blank";
+  // 入力値画面確認用
+  print_r($_POST);
+  echo strlen($_POST["email"]);
+
+  // ユーザ名
+  $name_error = validate_name($_POST["name"]);
+  if ($name_error != ""){
+    $error["name"] = $name_error;
   }
-  if ($_POST["email"] ?? "" == ""){
-    $error["email"] = "blank";
+  // メールアドレス
+  $email_error = validate_email($_POST["email"]);
+  if ($email_error == ""){
+    $email_error = duplicate_email($_POST["email"]);
   }
-  if ($_POST["email"] ?? "" != ""){
-    $check = $db->prepare("
-    select count(*) as cnt from users where email = ?;
-    ");
-    $count = $check->execute([
-      $_POST["email"]
-    ]);
-    if ($count["cnt"] > 0){
-      $error["email"] = "duplicate";
-    }
+  if ($email_error != ""){
+    $error["email"] = $email_error;
   }
-  if ($_POST["password"] ?? "" == ""){
-    $error["password"] = "blank";
+  // パスワード
+  $password_error = validate_password($_POST["password"]);
+  if ($password_error != ""){
+    $error["password"] = $password_error;
   }
 
+  // エラーがない場合更新
   if (empty($error)){
     $update = $db->prepare("
     update users set name = ?, email = ?, password = ?
@@ -76,7 +79,13 @@ if (!empty($_POST)){
     </dd>
     <dt>ユーザ名（変更内容）</dt>
     <dd>
-      <input type="text" name="name" value="edit1" size="30" maxlength="100"> 
+      <input type="text" name="name" value="<?php echo hsc($_POST["name"] ?? "") ?>" size="30" maxlength="30"> 
+      <?php if (($error["name"] ?? "") == "blank"): ?>
+        <p class="error">入力が空です</p>
+      <?php endif; ?>
+      <?php if (($error["name"] ?? "") == "too_long"): ?>
+        <p class="error">30文字以内で入力してください</p>
+      <?php endif; ?>
     </dd>
     <dt> メールアドレス（現在）</dt>
     <dd>
@@ -84,7 +93,19 @@ if (!empty($_POST)){
     </dd>
     <dt> メールアドレス（変更内容）</dt>
     <dd>
-      <input type="text" name="email" value="edit2" size="30" maxlength="100"> 
+      <input type="text" name="email" value="<?php echo hsc($_POST["email"] ?? "") ?>" size="30" maxlength="255">
+      <?php if (($error["email"] ?? "") == "blank"): ?>
+        <p class="error">入力が空です</p>
+      <?php endif; ?>
+      <?php if (($error["email"] ?? "") == "too_long"): ?>
+        <p class="error">入力が長すぎます</p>
+      <?php endif; ?>
+      <?php if (($error["email"] ?? "") == "invalid"): ?>
+        <p class="error">メールアドレスの形式があっていません</p>
+      <?php endif; ?>
+      <?php if (($error["email"] ?? "") == "duplicate"): ?>
+        <p class="error">すでに登録されているメールアドレスです</p>
+      <?php endif; ?>
     </dd>
     <dt> パスワード（現在）</dt>
     <dd>
@@ -92,7 +113,17 @@ if (!empty($_POST)){
     </dd>
     <dt>パスワード（変更内容）</dt>
     <dd>
-      <input type="password" name="password" value="edit3" size="30" maxlength="100"> 
+      <p>英数字記号（ !@#$%^&*()_\-+= ）可能</p>
+      <input type="password" name="password" value="<?php echo hsc($_POST["password"] ?? "") ?>" size="30" minlength="8" maxlength="100">
+      <?php if (($error["password"] ?? "") == "blank"): ?>
+        <p class="error">入力が空です</p>
+      <?php endif; ?> 
+      <?php if (($error["password"] ?? "") == "length_error"): ?>
+        <p class="error">8文字以上100文字以内で入力してください</p>
+      <?php endif; ?>
+      <?php if (($error["password"] ?? "") == "invalid"): ?>
+        <p class="error">半角英数字記号のみで入力してください</p>
+      <?php endif; ?>
     </dd>
   </dl>
   <input type="submit" value="変更">
