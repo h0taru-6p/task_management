@@ -4,6 +4,7 @@ require("../dbconnect.php");
 require("../functions.php");
 login_check($_SESSION["id"]);
 
+// 検索・絞り込み考慮したタスク一覧取得
 $keyword = hsc(($_REQUEST["keyword"] ?? ""));
 $tasks = $db->prepare("
 select * from tasks where user_id = ? and (title like ? or description like ?);
@@ -32,7 +33,7 @@ $tasks->execute([
     <a href="new.php">タスク登録</a>
     |
     <form action="" method="get">
-    <input type="text" name="keyword" value="<?php echo hsc(($_REQUEST["keyword"] ?? "")); ?>">
+    <input type="text" name="keyword" value="<?= hsc(($_REQUEST["keyword"] ?? "")); ?>">
     <button type="submit">検索・絞り込み</button>
   </form>
     |
@@ -40,12 +41,17 @@ $tasks->execute([
   </nav>
   <main>
     <?php foreach ($tasks as $task): ?>
-      <a href="edit.php?id=<?php echo hsc($task["id"]); ?>">
-        <p>タイトル： <?php echo $task["title"]; ?></p>
+      <?php
+      // 完了/未完了のステータス
+      $status = hsc($task["completed"] == 0 ? "未完了" : "完了");
+      echo $status;
+      ?>
+      <a href="edit.php?id=<?= hsc($task["id"]); ?>">
+        <p>タイトル： <?= $task["title"]; ?></p>
       </a>
-      <p>説明文： <?php echo hsc($task["description"] ?? ""); ?></p>
-      <p>期限日： <?php echo hsc(date("Y-m-d", strtotime($task["due_date"]))); ?></p>
-      <p>完了/未完了： <?php echo hsc($task["completed"] == 0 ? "未完了" : "完了"); ?></p>
+      <p>説明文： <?= hsc($task["description"] ?? ""); ?></p>
+      <p>期限日： <?= hsc(date("Y-m-d", strtotime($task["due_date"]))); ?></p>
+      <p>完了/未完了： <span class="<?= $status == "未完了" ? "red" : "green"; ?>"><?= $status;?></span></p>
       
     <?php endforeach; ?>
   </main>

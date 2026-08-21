@@ -12,7 +12,7 @@ function login_check($id){
     exit();
   }
 }
-// ユーザ名チェック
+// ユーザ名チェック（バリデーション）
 function validate_name($name){
   if (($name ?? "") == ""){
     // 空文字
@@ -56,7 +56,7 @@ function duplicate_email($email){
       return "";
     }
 }
-// パスワード形式チェック
+// パスワードチェック（バリデーション）
 function validate_password($password){
   $pattern = '/^[a-zA-Z0-9!@#$%^&*()_\-+=]+$/';
   if (($password ?? "") == ""){
@@ -69,4 +69,37 @@ function validate_password($password){
     return "";
   }
 }
+// タイトルチェック（バリデーション）
+function validate_title($title){
+  if (($title ?? "") == ""){
+    // 空文字
+    return "blank";
+  }elseif(mb_strlen($title) > 30){
+    // 30文字以内
+    return "too_long";
+  }else{
+    return "";
+  }
+}
+// 期限日チェック（バリデーション）
+function validate_due_date($due_date){
+  if (($due_date ?? "") == ""){
+    // 空文字
+    return "blank";
+  }else{
+    return "";
+  }
+}
+// 完了/未完了チェック（バリデーション）
+function validate_completed($completed){
+  if (($completed ?? "") == ""){
+    // 空文字
+    return "blank";
+  }else{
+    return "";
+  }
+}
+
+
+
 ?>

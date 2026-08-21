@@ -4,21 +4,28 @@ require("../dbconnect.php");
 require("../functions.php");
 login_check($_SESSION["id"]);
 
-$data = $db->prepare("
+$stmt = $db->prepare("
 select * from tasks where id = ?;
 ");
-$data->execute([
+$stmt->execute([
   ($_REQUEST["id"] ?? "")
 ]);
-$task = $data->fetch();
+$task = $stmt->fetch();
+$status = hsc($task["completed"] == 0 ? "未完了" : "完了");
 
 if (!empty($_POST)){
-  if (($_POST["title"] ?? "") == ""){
-    $error["title"] = "blank";
+  // タイトルチェック
+  $title_error = validate_title($_POST["title"]);
+  if (($title_error ?? "") != ""){
+    $error["title"] = $title_error;
   }
-  if (($_POST["completed"] ?? "") == ""){
-  $error["completed"] = "blank";
+  // 完了/未完了チェック
+  $completed_error = validate_completed($_POST["completed"]);
+  if (($completed_error ?? "") != ""){
+  $error["completed"] = $completed_error;
   }
+
+  // エラーなければ更新
   if (empty($error)){
     $update = $db->prepare("
     update tasks set title = ?, description = ?, due_date = ?, completed = ? where id = ?;
@@ -58,6 +65,9 @@ if (!empty($_POST)){
       <?php if (($error["title"] ?? "") == "blank"): ?>
       <p class="error">タイトルは必須です</p>
       <?php endif; ?>
+      <?php if (($error["title"] ?? "") == "too_long"): ?>
+      <p class="error">長すぎます</p>
+      <?php endif; ?>
     </dd>
   </dl>
   <dl>
@@ -74,12 +84,12 @@ if (!empty($_POST)){
   </dl>
   <dl>
     <dt>完了/未完了
-      (現在の設定：<?php echo hsc($task["completed"] == 0 ? "未完了" : "完了") ; ?>)
+      (現在の設定：<?= $status; ?>)
     </dt>
     <dd>
-      <input type="radio" id="choice1" name="completed" value="1">
+      <input type="radio" id="choice1" name="completed" value="1" <?= $status == "完了"? "checked" : ""; ?>>
       <label for="choice1">完了</label>
-      <input type="radio" id="choice2" name="completed" value="0">
+      <input type="radio" id="choice2" name="completed" value="0" <?= $status == "未完了"? "checked" : ""; ?>>
       <label for="choice2">未完了</label>
       <?php if (($error["completed"] ?? "") == "blank"): ?>
         <p class="error">完了/未完了は必須です</p>
