@@ -22,27 +22,26 @@ $member = $data->fetch();
 <body>
 <header>
   <h1>マイページ</h1>
+  <nav>
+    <a href="../task/index.php">タスク一覧</a>
+  </nav>
 </header>
-<nav>
-  <a href="../task/index.php">タスク一覧</a>
-</nav>
-<dl>
-  <dt>ユーザ名</dt>
-  <dd>
-    <?php echo hsc($member["name"]) ?>
-  </dd>
-  <dt>メールアドレス</dt>
-  <dd>
-    <?php echo hsc($member["email"]) ?>
-  </dd>
-  <dt>ユーザ名</dt>
-  <dd>
-    <?php echo "【パスワードは非表示】" ?>
-  </dd>
-</dl>
-<a href="edit.php">編集</a>
-<?php ?>
-
-
+<main>
+  <dl>
+    <dt>ユーザ名</dt>
+    <dd>
+      <?php echo hsc($member["name"]) ?>
+    </dd>
+    <dt>メールアドレス</dt>
+    <dd>
+      <?php echo hsc($member["email"]) ?>
+    </dd>
+    <dt>ユーザ名</dt>
+    <dd>
+      <?php echo "【パスワードは非表示】" ?>
+    </dd>
+  </dl>
+  <a href="edit.php">編集</a>
+</main>
 </body>
 </html>

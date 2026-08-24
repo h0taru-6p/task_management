@@ -5,10 +5,6 @@ require("../functions.php");
 
 // 値チェック
 if (!empty($_POST)){
-  // 入力値画面確認用
-  print_r($_POST);
-  echo strlen($_POST["name"]);
-
   // ユーザ名
   $name_error = validate_name($_POST["name"]);
   if ($name_error != ""){
@@ -51,56 +47,57 @@ if ($_REQUEST["action"] ?? "" == "rewrite"){
 <body>
 <header>
   <h1>ユーザ登録</h1>
+  <nav>
+    <a href="../index.php">戻る</a>
+  </nav>
 </header>
-<nav>
-  <a href="../index.php">戻る</a>
-</nav>
-<form action="" method="post">
-  <dl>
-    <dt>ユーザ名を入力してください</dt>
-    <dd>
-      <input type="text" name="name" value="<?php echo hsc($_POST["name"] ?? "") ?>" size="30" maxlength="30"> 
-      <?php if (($error["name"] ?? "") == "blank"): ?>
-        <p class="error">入力が空です</p>
-      <?php endif; ?>
-      <?php if (($error["name"] ?? "") == "too_long"): ?>
-        <p class="error">30文字以内で入力してください</p>
-      <?php endif; ?>
-    </dd>
-    <dt>メールアドレスを入力してください
-    </dt>
-    <dd>
-      <input type="text" name="email" value="<?php echo hsc($_POST["email"] ?? "") ?>" size="30" maxlength="255">
-      <?php if (($error["email"] ?? "") == "blank"): ?>
-        <p class="error">入力が空です</p>
-      <?php endif; ?>
-      <?php if (($error["email"] ?? "") == "too_long"): ?>
-        <p class="error">入力が長すぎます</p>
-      <?php endif; ?>
-      <?php if (($error["email"] ?? "") == "invalid"): ?>
-        <p class="error">メールアドレスの形式があっていません</p>
-      <?php endif; ?>
-      <?php if (($error["email"] ?? "") == "duplicate"): ?>
-        <p class="error">すでに登録されているメールアドレスです</p>
-      <?php endif; ?>
-    </dd>
-    <dt>パスワードを入力してください</dt>
-    <dd>
-      <p>英数字記号（ !@#$%^&*()_\-+= ）可能</p>
-      <input type="password" name="password" value="<?php echo hsc($_POST["password"] ?? "") ?>" size="30" minlength="8" maxlength="100">
-      <?php if (($error["password"] ?? "") == "blank"): ?>
-        <p class="error">入力が空です</p>
-      <?php endif; ?> 
-      <?php if (($error["password"] ?? "") == "length_error"): ?>
-        <p class="error">8文字以上100文字以内で入力してください</p>
-      <?php endif; ?>
-      <?php if (($error["password"] ?? "") == "invalid"): ?>
-        <p class="error">半角英数字記号のみで入力してください</p>
-      <?php endif; ?>
-    </dd>
-  </dl>
-  <input type="submit" value="確認">
-</form>
-
+<main>
+  <form action="" method="post">
+    <dl>
+      <dt>ユーザ名を入力してください</dt>
+      <dd>
+        <input type="text" name="name" value="<?php echo hsc($_POST["name"] ?? "") ?>" size="30" maxlength="30"> 
+        <?php if (($error["name"] ?? "") == "blank"): ?>
+          <p class="error">入力が空です</p>
+        <?php endif; ?>
+        <?php if (($error["name"] ?? "") == "too_long"): ?>
+          <p class="error">30文字以内で入力してください</p>
+        <?php endif; ?>
+      </dd>
+      <dt>メールアドレスを入力してください
+      </dt>
+      <dd>
+        <input type="text" name="email" value="<?php echo hsc($_POST["email"] ?? "") ?>" size="30" maxlength="255">
+        <?php if (($error["email"] ?? "") == "blank"): ?>
+          <p class="error">入力が空です</p>
+        <?php endif; ?>
+        <?php if (($error["email"] ?? "") == "too_long"): ?>
+          <p class="error">入力が長すぎます</p>
+        <?php endif; ?>
+        <?php if (($error["email"] ?? "") == "invalid"): ?>
+          <p class="error">メールアドレスの形式があっていません</p>
+        <?php endif; ?>
+        <?php if (($error["email"] ?? "") == "duplicate"): ?>
+          <p class="error">すでに登録されているメールアドレスです</p>
+        <?php endif; ?>
+      </dd>
+      <dt>パスワードを入力してください</dt>
+      <dd>
+        <p>英数字記号（ !@#$%^&*()_\-+= ）可能</p>
+        <input type="password" name="password" value="<?php echo hsc($_POST["password"] ?? "") ?>" size="30" minlength="8" maxlength="100">
+        <?php if (($error["password"] ?? "") == "blank"): ?>
+          <p class="error">入力が空です</p>
+        <?php endif; ?> 
+        <?php if (($error["password"] ?? "") == "length_error"): ?>
+          <p class="error">8文字以上100文字以内で入力してください</p>
+        <?php endif; ?>
+        <?php if (($error["password"] ?? "") == "invalid"): ?>
+          <p class="error">半角英数字記号のみで入力してください</p>
+        <?php endif; ?>
+      </dd>
+    </dl>
+    <input type="submit" value="確認">
+  </form>
+</main>
 </body>
 </html>

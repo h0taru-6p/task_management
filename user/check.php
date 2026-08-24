@@ -14,36 +14,34 @@ if (!empty($_POST)){
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>タスク管理アプリ</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <header>
   <h1>入力内容確認</h1>
+  <nav>
+    <a href="create.php?action=rewrite">修正</a>
+  </nav>
 </header>
-<nav>
-  <a href="create.php?action=rewrite">修正</a>
-</nav>
-<form action="add.php" method="post">
-  <input type="hidden" name="action">
-  <dl>
-    <dt>ユーザ名</dt>
-    <dd>
-      <?php echo hsc($_SESSION["join"]["name"]) ?>
-    </dd>
-    <dt>メールアドレス</dt>
-    <dd>
-      <?php echo hsc($_SESSION["join"]["email"]) ?>
-    </dd>
-    <dt>ユーザ名</dt>
-    <dd>
-      <?php echo "【パスワードは非表示】" ?>
-    </dd>
-  </dl>
-  <input type="submit" value="登録">
-</form>
-
-<?php ?>
-
-
+<main>
+  <form action="add.php" method="post">
+    <input type="hidden" name="action">
+    <dl>
+      <dt>ユーザ名</dt>
+      <dd>
+        <?php echo hsc($_SESSION["join"]["name"]) ?>
+      </dd>
+      <dt>メールアドレス</dt>
+      <dd>
+        <?php echo hsc($_SESSION["join"]["email"]) ?>
+      </dd>
+      <dt>ユーザ名</dt>
+      <dd>
+        <?php echo "【パスワードは非表示】" ?>
+      </dd>
+    </dl>
+    <input type="submit" value="登録">
+  </form>
+</main>
 </body>
 </html>

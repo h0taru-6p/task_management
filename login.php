@@ -30,10 +30,10 @@ if (!empty($_POST)){
 <body>
 <header>
   <h1>ログイン画面</h1>
-</header>
 <nav>
   <a href="index.php">戻る</a>
 </nav>
+</header>
 <main>
   <form action="" method="post">
     <?php if (!empty($error)): ?>

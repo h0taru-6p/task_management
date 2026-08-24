@@ -9,14 +9,13 @@
 <body>
 <header>
   <h1>トップ画面</h1>
+  <nav>
+    <p><a href="login.php">ログイン</a></p>
+    <p>|</p>
+    <p><a href="user/create.php">ユーザ登録</a></p>
+  </nav>
 </header>
-<nav>
-  <p><a href="login.php">ログイン</a></p>
-  <p>|</p>
-  <p><a href="user/create.php">ユーザ登録</a></p>
-</nav>
-
-
+<main></main>
 
 </body>
 </html>
