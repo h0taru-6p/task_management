@@ -20,9 +20,32 @@ nav {
   gap:30px;
   margin:20px 20px;
   justify-content: center;
-
-  
 }
+main {
+  width:90%;
+  text-align: center;
+  background-color: lightcyan;
+  flex: 1; /* 親の余った高さをすべて埋める */
+}
+form {
+  margin: 10px 0px;
+}
+.task-list {
+  display: flex;
+  /* flex-direction: column; */
+  flex-wrap: wrap; /* 親要素の幅や画面幅に合わせて折り返し */
+  justify-content: center;
+}
+.task-card {
+  display: inline-block;
+  text-align: left;
+  margin: 10px;
+  padding: 10px;
+  border: 5px solid #f0c050;
+  background-color: white;
+
+}
+
 .error {
   color: red;
 }

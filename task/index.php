@@ -37,7 +37,6 @@ $tasks->execute([
         <select name="sort">
             <option value="created_at">登録日順</option>
             <option value="due_date">期限日順</option>
-            <option value="completed">ステータス順</option>
             <option value="title">タイトル順</option>
           </select>
           <select name="completed">
@@ -50,22 +49,23 @@ $tasks->execute([
     </nav>
   </header>
   <main>
-    <?php foreach ($tasks as $task): ?>
-      <?php
-      // 完了/未完了のステータス
-      $status = hsc($task["completed"] == 0 ? "未完了" : "完了");
-      ?>
-      <a href="edit.php?id=<?= hsc($task["id"]); ?>">
-        <p>タイトル： <?= $task["title"]; ?></p>
-      </a>
-      <p>説明文： <?= hsc($task["description"] ?? ""); ?></p>
-      <p>期限日： <span class="<?= strtotime("now") > strtotime($task["due_date"]) ? "red":""; ?>"><?= hsc(date("Y-m-d", strtotime($task["due_date"]))); ?></span></p>
-      <p>完了/未完了： <span class="<?= $status == "未完了" ? "red" : "green"; ?>"><?= $status;?></span></p>
-      
-    <?php endforeach; ?>
+    <div class="task-list">
+      <?php foreach ($tasks as $task): ?>
+        <?php
+        // 完了/未完了のステータス
+        $status = hsc($task["completed"] == 0 ? "未完了" : "完了");
+        ?>
+        <article class="task-card">
+          <a href="edit.php?id=<?= hsc($task["id"]); ?>">
+            <p>タイトル： <?= $task["title"]; ?></p>
+          </a>
+          <p>説明文： <?= hsc($task["description"] ?? ""); ?></p>
+          <p>期限日： <span class="<?= strtotime("now") > strtotime($task["due_date"]) ? "red":""; ?>"><?= hsc(date("Y-m-d", strtotime($task["due_date"]))); ?></span></p>
+          <p>完了/未完了： <span class="<?= $status == "未完了" ? "red" : "green"; ?>"><?= $status;?></span></p>
+        </article> 
+      <?php endforeach; ?>
+    </div> 
   </main>
-
-
 
 </body>
 </html>

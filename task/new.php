@@ -40,37 +40,38 @@ if (!empty($_POST)){
 <body>
 <header>
   <h1>タスク登録</h1>
+  <nav>
+    <a href="index.php">戻る</a>
+  </nav>
 </header>
-<nav>
-  <a href="index.php">戻る</a>
-</nav>
-<form action="" method="post">
-  <dl>
-    <dt>タイトルを入力</dt>
-    <dd>
-      <input type="text" name="title" value="<?= hsc($_POST["name"] ?? ""); ?>" size="30" maxlength="30">
-      <?php if (($error["title"] ?? "") == "blank"): ?>
-      <p class="error">タイトルは必須です</p>
-      <?php endif; ?>
-      <?php if (($error["title"] ?? "") == "too_long"): ?>
-      <p class="error">長すぎます</p>
-      <?php endif; ?>
-    </dd>
-  </dl>
-  <dl>
-    <dt>説明文を入力（任意）</dt>
-    <dd>
-      <textarea name="description" cols="30" rows="3"><?= hsc($_POST["description"] ?? ""); ?></textarea>
-    </dd>
-  </dl>
-  <dl>
-    <dt>期限日を入力（任意）</dt>
-    <dd>
-      <input type="date" name="due_date" min="1700-01-01" max="2099-12-31" value="<?= hsc($_POST["due_date"] ?? ""); ?>">
-    </dd>
-  </dl>
-  <input type="submit" value="登録">
-</form>
-
+<main>
+  <form action="" method="post">
+    <dl>
+      <dt>タイトルを入力</dt>
+      <dd>
+        <input type="text" name="title" value="<?= hsc($_POST["name"] ?? ""); ?>" size="30" maxlength="30">
+        <?php if (($error["title"] ?? "") == "blank"): ?>
+        <p class="error">タイトルは必須です</p>
+        <?php endif; ?>
+        <?php if (($error["title"] ?? "") == "too_long"): ?>
+        <p class="error">長すぎます</p>
+        <?php endif; ?>
+      </dd>
+    </dl>
+    <dl>
+      <dt>説明文を入力（任意）</dt>
+      <dd>
+        <textarea name="description" cols="30" rows="3"><?= hsc($_POST["description"] ?? ""); ?></textarea>
+      </dd>
+    </dl>
+    <dl>
+      <dt>期限日を入力（任意）</dt>
+      <dd>
+        <input type="date" name="due_date" min="1700-01-01" max="2099-12-31" value="<?= hsc($_POST["due_date"] ?? ""); ?>">
+      </dd>
+    </dl>
+    <input type="submit" value="登録">
+  </form>
+</main>
 </body>
 </html>
