@@ -12,6 +12,7 @@
 </header>
 <nav>
   <p><a href="login.php">ログイン</a></p>
+  <p>|</p>
   <p><a href="user/create.php">ユーザ登録</a></p>
 </nav>
 

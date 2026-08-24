@@ -53,10 +53,10 @@ if (!empty($_POST)){
 <body>
 <header>
   <h1>タスク編集</h1>
+  <nav>
+    <a href="index.php">戻る</a>
+  </nav>
 </header>
-<nav>
-  <a href="index.php">戻る</a>
-</nav>
 <form action="" method="post">
   <dl>
     <dt>タイトルを編集</dt>

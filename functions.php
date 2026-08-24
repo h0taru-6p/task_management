@@ -100,6 +100,25 @@ function validate_completed($completed){
   }
 }
 
-
+// ソート機能振り分け
+function sorted($sort){
+  switch ($sort){
+    case "created_at":
+      $order = "created_at";
+      break;
+    case "due_date":
+      $order = "due_date";
+      break;
+    case "completed":
+      $order = "completed";
+      break;
+    case "title":
+      $order = "title";
+      break;
+    default:
+      $order = "created_at";
+  }
+  return $order;
+}
 
 ?>
