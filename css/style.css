@@ -37,21 +37,25 @@ form {
 dl {
  display: inline-block;
  text-align: left;
- border: 3px solid white;
+ border: 5px solid white;
+ border-radius: 5px;
  padding: 10px;
 }
 dt {
   font-weight: bold;
+}
+select {
+  border-radius: 5px;
 }
 .btn {
   display: block;
   margin:10px auto 0px;
   border-radius: 5px;
 }
-.task-list {
+#task-list {
   display: flex;
   gap: 30px;
-  margin-top: 30px;
+  margin: 30px 0px;
   /* background-color: #f0c050; */
   flex-wrap: wrap; /* 親要素の幅や画面幅に合わせて子要素を折り返し */
   justify-content: center;
@@ -60,14 +64,20 @@ dt {
   display: inline-block;
   text-align: left;
   max-width: 90%;
-  width: calc(50% - 80px);
-  /* width: 100%; */
   padding: 10px;
   border: 5px solid #f0c050;
   border-radius: 10px;
   background-color: white;
 }
-
+.columns-0 .task-card {
+  width: auto;
+}
+.columns-1 .task-card {
+  width: 100%;
+}
+.columns-2 .task-card {
+  width: calc(50% - 80px);
+}
 .error {
   color: red;
 }

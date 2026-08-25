@@ -120,6 +120,7 @@ function sorted($sort){
   }
   return $input;
 }
+// 並び替え
 function ordered($order){
   switch ($order){
     case "asc":

@@ -26,6 +26,7 @@ $tasks->execute([
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>タスク管理アプリ</title>
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/main.js" defer></script> <!-- deferは非同期処理の指定　headにscriptタグを入れるときに必要 --> 
 </head>
 <body>
   <header>
@@ -50,22 +51,22 @@ $tasks->execute([
         </select>
         <button type="submit" class="btn">検索・ソート</button>
       </form>
-      <select name="grid">
-          <option value="auto">auto</option>
-          <option value="two">2枚幅</option>
-          <option value="one">1枚幅</option>
+      <select id="column-select" onchange="changeColumns(this.value)">
+          <option value="0" selected>auto</option>
+          <option value="1">1列</option>
+          <option value="2">2列</option>
         </select>
       <a href="../logout.php">ログアウト</a>
     </nav>
   </header>
   <main>
-    <div class="task-list">
+    <div id="task-list" class="columns-0">
       <?php foreach ($tasks as $task): ?>
         <?php
         // 完了/未完了のステータス
         $status = hsc($task["completed"] == 0 ? "未完了" : "完了");
         ?>
-        <article class="task-card">
+        <article class="task-card" >
           <a href="edit.php?id=<?= hsc($task["id"]); ?>">
             <p>タイトル： <?= $task["title"]; ?></p>
           </a>
