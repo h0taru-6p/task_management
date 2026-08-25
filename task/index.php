@@ -8,8 +8,9 @@ login_check($_SESSION["id"]);
 $keyword = ($_REQUEST["keyword"] ?? "");
 $sort = sorted($_REQUEST["sort"] ?? "");
 $completed = $_REQUEST["completed"] ?? "";
+$order = ordered($_REQUEST["order"] ?? "");
 $tasks = $db->prepare("
-select * from tasks where user_id = ? and (title like ? or description like ?) and completed = ? order by $sort;
+select * from tasks where user_id = ? and (title like ? or description like ?) and completed = ? order by $sort $order;
 ");
 $tasks->execute([
   $_SESSION["id"],
@@ -43,8 +44,17 @@ $tasks->execute([
             <option value="1">完了</option>
             <option value="0" selected>未完了</option>
           </select>
+        <select name="order">
+          <option value="asc" selected>昇順</option>
+          <option value="desc">降順</option>
+        </select>
         <button type="submit" class="btn">検索・ソート</button>
       </form>
+      <select name="grid">
+          <option value="auto">auto</option>
+          <option value="two">2枚幅</option>
+          <option value="one">1枚幅</option>
+        </select>
       <a href="../logout.php">ログアウト</a>
     </nav>
   </header>

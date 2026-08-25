@@ -22,7 +22,7 @@ header {
 nav {
   display: flex;
   gap:30px;
-  margin:20px 20px;
+  margin:20px;
   justify-content: center;
 }
 main {
@@ -50,16 +50,21 @@ dt {
 }
 .task-list {
   display: flex;
-  /* flex-direction: column; */
+  gap: 30px;
+  margin-top: 30px;
+  /* background-color: #f0c050; */
   flex-wrap: wrap; /* 親要素の幅や画面幅に合わせて子要素を折り返し */
   justify-content: center;
 }
 .task-card {
   display: inline-block;
   text-align: left;
-  margin: 10px;
+  max-width: 90%;
+  width: calc(50% - 80px);
+  /* width: 100%; */
   padding: 10px;
   border: 5px solid #f0c050;
+  border-radius: 10px;
   background-color: white;
 }
 

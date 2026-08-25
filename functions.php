@@ -104,21 +104,33 @@ function validate_completed($completed){
 function sorted($sort){
   switch ($sort){
     case "created_at":
-      $order = "created_at";
+      $input = "created_at";
       break;
     case "due_date":
-      $order = "due_date";
+      $input = "due_date";
       break;
     case "completed":
-      $order = "completed";
+      $input = "completed";
       break;
     case "title":
-      $order = "title";
+      $input = "title";
       break;
     default:
-      $order = "created_at";
+      $input = "created_at";
   }
-  return $order;
+  return $input;
 }
-
+function ordered($order){
+  switch ($order){
+    case "asc":
+      $input = "asc";
+      break;
+    case "desc":
+      $input = "desc";
+      break;
+    default:
+      $input = "asc";
+  }
+  return $input;
+}
 ?>
