@@ -83,7 +83,7 @@ if ($_REQUEST["action"] ?? "" == "rewrite"){
       </dd>
       <dt>パスワードを入力してください</dt>
       <dd>
-        <p>英数字記号（ !@#$%^&*()_\-+= ）可能</p>
+        <p class="note">英数字記号（ !@#$%^&*()_\-+= ）可能</p>
         <input type="password" name="password" value="<?php echo hsc($_POST["password"] ?? "") ?>" size="30" minlength="8" maxlength="100">
         <?php if (($error["password"] ?? "") == "blank"): ?>
           <p class="error">入力が空です</p>
@@ -96,7 +96,7 @@ if ($_REQUEST["action"] ?? "" == "rewrite"){
         <?php endif; ?>
       </dd>
     </dl>
-    <input type="submit" value="確認">
+    <button type="submit" class="btn">確認</button>
   </form>
 </main>
 </body>

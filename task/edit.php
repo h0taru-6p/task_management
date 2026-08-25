@@ -70,20 +70,14 @@ if (!empty($_POST)){
         <p class="error">長すぎます</p>
         <?php endif; ?>
       </dd>
-    </dl>
-    <dl>
       <dt>説明文を編集(任意)</dt>
       <dd>
         <textarea name="description" cols="30" rows="3"><?php echo hsc($task["description"]); ?></textarea>
       </dd>
-    </dl>
-    <dl>
       <dt>期限日を編集（任意）</dt>
       <dd>
         <input type="date" name="due_date" value="<?php echo hsc(date("Y-m-d", strtotime($task["due_date"]))); ?>">
       </dd>
-    </dl>
-    <dl>
       <dt>完了/未完了
         (現在の設定：<?= $status; ?>)
       </dt>
@@ -97,9 +91,9 @@ if (!empty($_POST)){
         <?php endif; ?>
       </dd>
     </dl>
-    <input type="submit" value="変更">
+    <button type="submit" class="btn">変更</button>
   </form>
-  <a href="delete.php?id=<?php echo hsc($_REQUEST["id"]) ?>">削除</a>
+  <a href="delete.php?id=<?php echo hsc($_REQUEST["id"]) ?>" class="btn">削除</a>
 </main>
 </body>
 </html>

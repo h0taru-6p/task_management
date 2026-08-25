@@ -8,7 +8,7 @@
 </head>
 <body>
 <header>
-  <h1>トップ画面</h1>
+  <h1>トップ</h1>
   <nav>
     <p><a href="login.php">ログイン</a></p>
     <p>|</p>

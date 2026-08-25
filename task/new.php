@@ -57,20 +57,16 @@ if (!empty($_POST)){
         <p class="error">長すぎます</p>
         <?php endif; ?>
       </dd>
-    </dl>
-    <dl>
       <dt>説明文を入力（任意）</dt>
       <dd>
         <textarea name="description" cols="30" rows="3"><?= hsc($_POST["description"] ?? ""); ?></textarea>
       </dd>
-    </dl>
-    <dl>
       <dt>期限日を入力（任意）</dt>
       <dd>
         <input type="date" name="due_date" min="1700-01-01" max="2099-12-31" value="<?= hsc($_POST["due_date"] ?? ""); ?>">
       </dd>
     </dl>
-    <input type="submit" value="登録">
+    <button type="submit" class="btn">登録</button>
   </form>
 </main>
 </body>

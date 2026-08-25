@@ -40,7 +40,7 @@ if (!empty($_POST)){
         <?php echo "【パスワードは非表示】" ?>
       </dd>
     </dl>
-    <input type="submit" value="登録">
+    <button type="submit" class="btn">登録</button>
   </form>
 </main>
 </body>

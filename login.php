@@ -29,7 +29,7 @@ if (!empty($_POST)){
 </head>
 <body>
 <header>
-  <h1>ログイン画面</h1>
+  <h1>ログイン</h1>
 <nav>
   <a href="index.php">戻る</a>
 </nav>
@@ -49,17 +49,8 @@ if (!empty($_POST)){
       <input type="password" name="password" size="30" maxlength="100">
       </dd>
     </dl>
-    <input type="submit" value="ログイン">
+    <button type="submit" class="btn">ログイン</button>
   </form>
 </main>
-<?php ?>
-
-
-
-
-
-
-
-
 </body>
 </html>

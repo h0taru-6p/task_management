@@ -11,8 +11,6 @@ $stmt->execute([
   $_SESSION["id"]
 ]);
 $user = $stmt->fetch();
-print_r($user);
-
 // 値チェック
 if (!empty($_POST)){
   // 入力値画面確認用
@@ -66,7 +64,7 @@ if (!empty($_POST)){
 </head>
 <body>
 <header>
-  <h1>ユーザ編集画面</h1>
+  <h1>ユーザ編集</h1>
   <nav>
     <a href="index.php">戻る</a>
   </nav>
@@ -114,7 +112,7 @@ if (!empty($_POST)){
       </dd>
       <dt>パスワード（変更内容）</dt>
       <dd>
-        <p>英数字記号（ !@#$%^&*()_\-+= ）可能</p>
+        <p class="note">英数字記号（ !@#$%^&*()_\-+= ）可能</p>
         <input type="password" name="password" value="<?php echo hsc($_POST["password"] ?? "") ?>" size="30" minlength="8" maxlength="100">
         <?php if (($error["password"] ?? "") == "blank"): ?>
           <p class="error">入力が空です</p>
@@ -127,7 +125,7 @@ if (!empty($_POST)){
         <?php endif; ?>
       </dd>
     </dl>
-    <input type="submit" value="変更">
+    <button type="submit" class="btn">変更</button>
   </form>
 </main>
 </body>

@@ -43,7 +43,7 @@ $tasks->execute([
             <option value="1">完了</option>
             <option value="0" selected>未完了</option>
           </select>
-        <button type="submit">検索・ソート</button>
+        <button type="submit" class="btn">検索・ソート</button>
       </form>
       <a href="../logout.php">ログアウト</a>
     </nav>

@@ -5,15 +5,19 @@
 body {
   min-height: 100vh;
   max-width:1000px;
+  margin: auto;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
+  background-image: url(images/Venezia.png);
+  background-size: cover;
   
 }
 header {
   width:90%;
   text-align: center;
-  background-color:aliceblue;
+  background-color: rgba(240, 248, 255, 0.8); /* aliceblue */
 }
 nav {
   display: flex;
@@ -24,7 +28,7 @@ nav {
 main {
   width:90%;
   text-align: center;
-  background-color: lightcyan;
+  background-color: rgba(224, 255, 255, 0.8); /* lightcyan */
   flex: 1; /* 親の余った高さをすべて埋める */
 }
 form {
@@ -33,10 +37,16 @@ form {
 dl {
  display: inline-block;
  text-align: left;
+ border: 3px solid white;
+ padding: 10px;
 }
-input[type="submit"]{
+dt {
+  font-weight: bold;
+}
+.btn {
   display: block;
   margin:10px auto 0px;
+  border-radius: 5px;
 }
 .task-list {
   display: flex;
@@ -61,4 +71,7 @@ input[type="submit"]{
 }
 .green {
   color: green;
+}
+.note {
+  color: darkgray;
 }

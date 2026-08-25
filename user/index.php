@@ -41,7 +41,7 @@ $member = $data->fetch();
       <?php echo "【パスワードは非表示】" ?>
     </dd>
   </dl>
-  <a href="edit.php">編集</a>
+  <a href="edit.php" class="btn">編集</a>
 </main>
 </body>
 </html>
