@@ -7,7 +7,7 @@ body {
   max-width:1000px;
   margin: auto;
   display: flex;
-  justify-content: center;
+  justify-content: center; /* 親要素で指定する */
   flex-direction: column;
   align-items: center;
   background-image: url(images/Venezia.png);
@@ -23,7 +23,10 @@ nav {
   display: flex;
   gap:30px;
   margin:20px;
+  padding: 20px 0;
   justify-content: center;
+  border-top:5px solid white;
+  border-bottom:5px solid white;
 }
 main {
   width:90%;
@@ -32,24 +35,31 @@ main {
   flex: 1; /* 親の余った高さをすべて埋める */
 }
 form {
-  margin: 10px 0px;
+  margin: 10px auto 0;
 }
 dl {
  display: inline-block;
+ width: 50%;
+ background-color: rgba(240, 248, 255, 0.8);
  text-align: left;
  border: 5px solid white;
  border-radius: 5px;
- padding: 10px;
+ padding: 20px;
+ margin-top: 20px;
 }
 dt {
   font-weight: bold;
+}
+dd {
+  margin-bottom: 20px;
+  margin-left: 0;
 }
 select {
   border-radius: 5px;
 }
 .btn {
   display: block;
-  margin:10px auto 0px;
+  margin:10px auto 0;
   border-radius: 5px;
 }
 #task-list {
@@ -80,6 +90,7 @@ select {
 }
 .error {
   color: red;
+  margin: 5px 0;
 }
 .red {
   color: red;
@@ -89,4 +100,5 @@ select {
 }
 .note {
   color: darkgray;
+  margin: 5px 0;
 }

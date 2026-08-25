@@ -65,13 +65,14 @@ $tasks->execute([
         <?php
         // 完了/未完了のステータス
         $status = hsc($task["completed"] == 0 ? "未完了" : "完了");
+        $due_date = hsc($task["due_date"] == "0000-00-00 00:00:00" ? "未設定" :  hsc(date("Y-m-d", strtotime($task["due_date"]))));
         ?>
         <article class="task-card" >
           <a href="edit.php?id=<?= hsc($task["id"]); ?>">
             <p>タイトル： <?= $task["title"]; ?></p>
           </a>
           <p>説明文： <?= hsc($task["description"] ?? ""); ?></p>
-          <p>期限日： <span class="<?= strtotime("now") > strtotime($task["due_date"]) ? "red":""; ?>"><?= hsc(date("Y-m-d", strtotime($task["due_date"]))); ?></span></p>
+          <p>期限日： <span class="<?= strtotime("now") > strtotime($task["due_date"]) ? "red":""; ?>"><?= $due_date; ?></span></p>
           <p>完了/未完了： <span class="<?= $status == "未完了" ? "red" : "green"; ?>"><?= $status;?></span></p>
         </article> 
       <?php endforeach; ?>
