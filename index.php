@@ -11,7 +11,7 @@
   <h1>トップ</h1>
   <nav>
     <p><a href="login.php">ログイン</a></p>
-    <p>|</p>
+    <p>---------------------</p>
     <p><a href="user/create.php">ユーザ登録</a></p>
   </nav>
 </header>

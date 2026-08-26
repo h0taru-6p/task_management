@@ -32,31 +32,35 @@ $tasks->execute([
   <header>
     <h1>タスク一覧</h1>
     <nav>
-      <a href="../user/index.php">マイページ</a>
-      <a href="new.php">タスク登録</a>
-      <form method="get">
-        <input type="text" name="keyword" value="<?= hsc(($_REQUEST["keyword"] ?? "")); ?>">
-        <select name="sort">
-            <option value="created_at">登録日順</option>
-            <option value="due_date">期限日順</option>
-            <option value="title">タイトル順</option>
+      <div class="nav-links">
+        <a href="../user/index.php">マイページ</a>
+        <a href="new.php">タスク登録</a>
+        <a href="../logout.php">ログアウト</a>
+      </div>
+      <div class="task-controls">
+        <form method="get" class="controls-sort">
+          <input type="text" name="keyword" value="<?= hsc(($_REQUEST["keyword"] ?? "")); ?>">
+          <select name="sort">
+              <option value="created_at">登録日順</option>
+              <option value="due_date">期限日順</option>
+              <option value="title">タイトル順</option>
+            </select>
+            <select name="completed">
+              <option value="1">完了</option>
+              <option value="0" selected>未完了</option>
+            </select>
+          <select name="order">
+            <option value="asc" selected>昇順</option>
+            <option value="desc">降順</option>
           </select>
-          <select name="completed">
-            <option value="1">完了</option>
-            <option value="0" selected>未完了</option>
-          </select>
-        <select name="order">
-          <option value="asc" selected>昇順</option>
-          <option value="desc">降順</option>
-        </select>
-        <button type="submit" class="btn">検索・ソート</button>
-      </form>
+          <button type="submit" class="btn">検索</button>
+        </form>
+      </div>
       <select id="column-select" onchange="changeColumns(this.value)">
-          <option value="0" selected>auto</option>
-          <option value="1">1列</option>
-          <option value="2">2列</option>
-        </select>
-      <a href="../logout.php">ログアウト</a>
+        <option value="0" selected>表示：auto</option>
+        <option value="1">表示：1列</option>
+        <option value="2">表示：2列</option>
+      </select>
     </nav>
   </header>
   <main>
