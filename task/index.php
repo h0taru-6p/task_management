@@ -2,8 +2,10 @@
 session_start();
 require("../dbconnect.php");
 require("../functions.php");
+require("../common/toast.php"); // トースト表示
 login_check($_SESSION["id"]);
-
+echo $_SESSION["message"] ?? "";
+// require("../common/toast.php"); // トースト表示
 // 検索・絞り込み考慮したタスク一覧取得
 $keyword = ($_REQUEST["keyword"] ?? "");
 $sort = sorted($_REQUEST["sort"] ?? "");
@@ -29,6 +31,7 @@ $tasks->execute([
   <script src="../js/main.js" defer></script> <!-- deferは非同期処理の指定　headにscriptタグを入れるときに必要 --> 
 </head>
 <body>
+  
   <header>
     <h1>タスク一覧</h1>
     <nav>

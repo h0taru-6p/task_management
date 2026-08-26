@@ -22,6 +22,7 @@ if (!empty($_POST)){
       ($_POST["description"] ?? null),
       ($_POST["due_date"] ?? null)
     ]);
+    $_SESSION["message"] = "タスクを登録しました";
     header("Location: index.php");
     exit();
   }
@@ -59,7 +60,7 @@ if (!empty($_POST)){
       </dd>
       <dt>説明文を入力（任意）</dt>
       <dd>
-        <textarea name="description" cols="30" rows="3"><?= hsc($_POST["description"] ?? ""); ?></textarea>
+        <textarea name="description" cols="31" rows="5"><?= hsc($_POST["description"] ?? ""); ?></textarea>
       </dd>
       <dt>期限日を入力（任意）</dt>
       <dd>
