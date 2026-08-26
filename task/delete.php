@@ -10,6 +10,7 @@ delete from tasks where id = ?;
 $task->execute([
   $_REQUEST["id"]
 ]);
+$_SESSION["message"] = "タスクを削除しました";
 header("Location: index.php");
 exit();
 ?>

@@ -1,7 +1,8 @@
 <?php
 session_start();
 require("dbconnect.php");
-
+require("functions.php");
+require("common/toast.php"); // トースト表示
 if (!empty($_POST)){
   $user = $db->prepare("
   select * from users where email = ?;
@@ -12,6 +13,7 @@ if (!empty($_POST)){
   $member = $user->fetch();
   if (password_verify($_POST["password"], $member["password"])){
     $_SESSION["id"] = $member["id"];
+    $_SESSION["message"] = "ログインしました";
     header("Location: task/index.php");
     exit();
   }
@@ -26,6 +28,7 @@ if (!empty($_POST)){
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>タスク管理アプリ</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script> <!-- deferは非同期処理の指定　headにscriptタグを入れるときに必要 --> 
 </head>
 <body>
 <header>

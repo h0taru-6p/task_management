@@ -37,6 +37,7 @@ if (!empty($_POST)){
       $_POST["completed"],
       $_REQUEST["id"]
     ]);
+    $_SESSION["message"] = "タスクを編集しました";
     header("Location: index.php");
     exit();
   }
