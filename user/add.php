@@ -11,6 +11,7 @@ $user->execute([
   password_hash($_SESSION["join"]["password"], PASSWORD_DEFAULT)
 ]);
 unset($_SESSION["join"]);
+$_SESSION["message"] = "ユーザ登録しました";
 header("Location: ../login.php");
 exit();
 ?>

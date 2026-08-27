@@ -3,7 +3,7 @@ session_start();
 require("../dbconnect.php");
 require("../functions.php");
 if (!empty($_POST)){
-  header("Location: ../task/index.php");
+  header("Location: add.php");
   exit();
 }
 ?>
@@ -24,7 +24,7 @@ if (!empty($_POST)){
   </nav>
 </header>
 <main>
-  <form action="add.php" method="post">
+  <form action="" method="post">
     <input type="hidden" name="action">
     <dl>
       <dt>ユーザ名</dt>

@@ -13,10 +13,6 @@ $stmt->execute([
 $user = $stmt->fetch();
 // 値チェック
 if (!empty($_POST)){
-  // 入力値画面確認用
-  print_r($_POST);
-  echo strlen($_POST["email"]);
-
   // ユーザ名
   $name_error = validate_name($_POST["name"]);
   if ($name_error != ""){
@@ -48,6 +44,7 @@ if (!empty($_POST)){
       password_hash($_POST["password"], PASSWORD_DEFAULT),
       $_SESSION["id"]
     ]);
+    $_SESSION["message"] = "ユーザ情報を編集しました";
     header("Location: index.php");
     exit();
   }

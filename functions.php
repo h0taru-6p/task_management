@@ -8,6 +8,7 @@ function hsc($value){
 // ログインチェック　なければログイン画面に戻す
 function login_check($id){
   if (!isset($id)){
+    $_SESSION["message"] = "不正なログインです";
     header("Location: ../login.php");
     exit();
   }

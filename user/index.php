@@ -2,6 +2,9 @@
 session_start();
 require("../dbconnect.php");
 require("../functions.php");
+require("../common/toast.php"); // トースト表示
+login_check($_SESSION["id"]);
+
 $data = $db->prepare("
 select * from users where id = ?;
 ");
@@ -18,6 +21,7 @@ $member = $data->fetch();
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <title>タスク管理アプリ</title>
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/main.js" defer></script> <!-- deferは非同期処理の指定　headにscriptタグを入れるときに必要 --> 
 </head>
 <body>
 <header>
