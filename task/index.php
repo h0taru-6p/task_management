@@ -1,7 +1,7 @@
 <?php
 session_start();
-require("../dbconnect.php");
-require("../functions.php");
+require("../common/dbconnect.php");
+require("../common/functions.php");
 require("../common/toast.php"); // トースト表示
 login_check($_SESSION["id"]);
 // 検索・絞り込み考慮したタスク一覧取得

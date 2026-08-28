@@ -1,6 +1,6 @@
 <?php
 session_start();
-require("../dbconnect.php");
+require("../common/dbconnect.php");
 $user = $db->prepare("
 insert into users (name, email, password)
 values(?, ?, ?);

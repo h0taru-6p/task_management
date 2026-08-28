@@ -1,7 +1,7 @@
 <?php
 session_start();
-require("dbconnect.php");
-require("functions.php");
+require("common/dbconnect.php");
+require("common/functions.php");
 require("common/toast.php"); // トースト表示
 if (!empty($_POST)){
   $user = $db->prepare("
