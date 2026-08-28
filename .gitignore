@@ -1,4 +1,5 @@
 .env
 /z_post_sample/
 *.log
-docs/MEMO.md
+docs/TODO.md
+database/task.sql

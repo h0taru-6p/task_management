@@ -11,7 +11,7 @@ if (!empty($_POST)){
     $_POST["email"],
   ]);
   $member = $user->fetch();
-  if (password_verify($_POST["password"], $member["password"])){
+  if (password_verify($_POST["password"] ?? "", $member["password"] ?? "")){
     $_SESSION["id"] = $member["id"];
     $_SESSION["message"] = "ログインしました";
     header("Location: task/index.php");
@@ -34,7 +34,7 @@ if (!empty($_POST)){
 <header>
   <h1>ログイン</h1>
 <nav>
-  <a href="index.php">戻る</a>
+  <a href="index.php">トップ</a>
 </nav>
 </header>
 <main>
