@@ -29,7 +29,7 @@ PHPとMariaDBを使用したタスク管理webアプリ
 
 ## 使用技術
 - PHP
-- MariaSQL
+- MariaDB
 - HTML
 - CSS
 - JavaScript
@@ -50,7 +50,7 @@ PHPとMariaDBを使用したタスク管理webアプリ
 - XAMPP
 - Apache
 - PHP:8.2.12
-- MariaSQL:10.4.32
+- MariaDB:10.4.32
 
 ## 環境構築
 - XAMPPをインストール
@@ -107,4 +107,5 @@ PHPとMariaDBを使用したタスク管理webアプリ
 - セッションを利用して処理結果をトースト通知
 
 ## 今後追加したい機能
-
+- 優先度設定
+- 期限日の状態を「余裕 / 間近 / 超過」で視覚的に表示
