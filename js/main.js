@@ -36,7 +36,9 @@ function showModal(){
     modal.style.display = "none";
   });
 }
-document.addEventListener("DOMContentLoaded", () => {
-  showModal();
-});
+showModal(); // deferで読み込んでいるためDOMContentLoaded不要
+// document.addEventListener("DOMContentLoaded", () => {
+//   showModal();
+// });
+
 

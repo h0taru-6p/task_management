@@ -99,14 +99,13 @@ if (!empty($_POST)){
   <!-- <a href="delete.php?id=<?php //echo hsc($_REQUEST["id"]) ?>" class="btn">削除</a> -->
   <button type="button" id="delete-button" class="btn">削除</button>
   <!-- モーダル表示 -->
-  <div id="confirm-modal" class="modal">
+  <div id="confirm-modal" class="modal"> <!-- ここでjsにより中のコンテンツをon,offする -->
     <div class="modal-content">
       <p>削除しますか？</p>
-
       <button type="button" id="cancel-button">キャンセル</button>
-
+      
       <form action="delete.php" method="post">
-        <input type="hidden" name="task_id" value="<?= $_REQUEST["id"]; ?>">
+        <input type="hidden" name="task_id" value="<?= hsc($_REQUEST["id"]); ?>">
         <button type="submit">削除する</button>
       </form>
     </div>
