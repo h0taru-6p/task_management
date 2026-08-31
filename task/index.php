@@ -58,7 +58,7 @@ $tasks->execute([
         </form>
       </div>
       <select id="column-select" onchange="changeColumns(this.value)">
-        <option value="0" selected>表示：auto</option>
+        <option value="0" selected>表示：Auto</option>
         <option value="1">表示：1列</option>
         <option value="2">表示：2列</option>
       </select>
